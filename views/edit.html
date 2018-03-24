@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    table{
+      width: 500px;
+      margin: 0 auto;
+    }
+    td{
+      line-height: 50px;
+    }
+  </style>
+</head>
+<body>
+  <form action="/edit" method="post">
+    <input type="hidden" name="id" value="{{id}}">
+      <table>
+        <tr>
+          <td>英雄名称</td>
+          <td>
+            <input type="text" name="name" value="{{name}}">
+          </td>
+        </tr>
+        <tr>
+          <td>英雄性别</td>
+          <td>
+            <input type="radio" value="男" name="gender" id="boy" {{gender=="男"?'checked':''}}>
+            <label for="boy">男</label>
+            <input type="radio" value="女" name="gender" id="girl" {{gender=="女"?'checked':''}}>
+            <label for="girl">女</label>
+          </td>
+        </tr>
+        <tr>
+          <td>英雄头像</td>
+          <!-- <td><input type="file" name="img"></td> -->
+        </tr>
+        <tr>
+          <td></td>
+          <td><button type="submit">修改</button></td>
+        </tr>
+      </table>
+  </form>
+</body>
+</html>

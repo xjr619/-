@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    table{
+      width: 500px;
+      margin: 0 auto;
+    }
+    td{
+      line-height: 50px;
+    }
+  </style>
+</head>
+<body>
+  <form action="/add" method="post">
+      <table>
+        <tr>
+          <td>英雄名称</td>
+          <td>
+            <input type="text" name="name">
+          </td>
+        </tr>
+        <tr>
+          <td>英雄性别</td>
+          <td>
+            <input type="radio" value="男" name="gender" id="boy">
+            <label for="boy">男</label>
+            <input type="radio" value="女" name="gender" id="girl">
+            <label for="girl">女</label>
+          </td>
+        </tr>
+        <tr>
+          <td>英雄头像</td>
+          <td>
+            <img src="" alt="" class="showImg" style="width:60px;">
+            <input type="file" name="img" id="img">
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><button type="button" id="addBtn">新增</button></td>
+        </tr>
+      </table>
+  </form>
+  <script src="/node_modules/jquery/dist/jquery.js"></script>
+  <script>
+    // 图片预览
+    $("#img").on("change",function(){
+      var fd = new FormData();
+      fd.append("img",this.files[0]);
+      $.ajax({
+        url:"/upload",
+        dataType:"json",
+        data:fd,
+        contentType:false,
+        processData:false,
+        type:"post",
+        success:function(res){
+          if(res.msg=="success"){
+            $(".showImg").attr("src",res.src);
+          }
+        }
+      })
+    })
+    // 添加数据
+    $("#addBtn").on("click",function(){
+      // 手机表单数据
+        var data = {
+          name:$("input[name='name']").val(),
+          gender:$("input[type = 'radio']:checked").val(),
+          img:$(".showImg").attr("src"),
+        }
+       $.ajax({
+         url:"/add",
+         type:"post",
+         data:data,
+         dataType:"json",
+        success:function(res){
+            if (res.status==1) {
+              alert(res.msg);
+              window.location = "/";
+            }else{
+              alert(res.msg);
+            }
+        }
+       })
+    })
+  </script>
+</body>
+</html>
